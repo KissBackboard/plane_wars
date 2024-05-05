@@ -1,0 +1,395 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+body,
+#game {
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
+    user-select: none;
+}
+
+#game {
+    background-image: url(../resource/img/bg2.png);
+    background-size: contain;
+    animation: gameBG 3600s infinite linear;
+}
+
+@keyframes gameBG {
+    100% {
+        background-position-y: 40000%;
+    }
+}
+
+#myPlane {
+    width: 80px;
+    height: 70px;
+    position: fixed;
+    z-index: 9;
+    top: 666px;
+    left: 160px;
+}
+
+#myPlane img {
+    width: 100%;
+    height: auto;
+    filter: drop-shadow(0 0 3px black);
+}
+
+#myPlane.invincible {
+    filter: drop-shadow(0px 0px 5px #fffb00) saturate(150%);
+}
+
+.wingman1,
+.wingman2 {
+    width: 35px;
+    height: auto;
+    position: fixed;
+    z-index: 9;
+    transition: top .1s;
+}
+
+.bullet {
+    position: fixed;
+    animation: bullet 1s linear forwards;
+}
+
+@keyframes bullet {
+    100% {
+        top: -300px;
+    }
+}
+
+.enemy {
+    position: fixed;
+    z-index: 2;
+    top: -100px;
+    height: auto;
+    filter: drop-shadow(0 0 2px rgb(51, 50, 50));
+}
+
+@keyframes enemy {
+    100% {
+        top: 100vh;
+    }
+}
+
+.show {
+    width: 100vw;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 99;
+    animation: show 1s;
+    display: none;
+}
+
+@keyframes show {
+    0% {
+        top: -200px;
+    }
+}
+
+.show span {
+    padding: 0 2px;
+    margin: 0 3px;
+    display: inline-block;
+    border: 1px solid rgb(255, 255, 255);
+    transform: skew(5deg);
+    color: white;
+    font-weight: 700;
+}
+
+.myBlood {
+    width: 66%;
+    height: 20px;
+    border-radius: 0;
+    transform: skew(10deg);
+    margin: 6px;
+    box-shadow: 0 0 0 2px white;
+    display: block;
+}
+
+.myBlood::-webkit-progress-bar {
+    background-color: #ffcaca;
+}
+
+.myBlood::-webkit-progress-value {
+    background-color: red;
+}
+
+.myBlood::before {
+    content: '血量';
+    position: absolute;
+    left: 3px;
+    color: white;
+    filter: drop-shadow(0 0 2px black);
+}
+
+.myBlood::after {
+    content: attr(value);
+    position: absolute;
+    top: 0;
+    left: 40px;
+    color: white;
+    filter: drop-shadow(0 0 2px black);
+}
+
+.myGold {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    color: #ff9500;
+    font-weight: 800;
+    font-size: 18px;
+    z-index: 9;
+}
+
+.pauseBtn {
+    width: 40px;
+    height: auto;
+    position: absolute;
+    top: 40px;
+    right: 5px;
+    z-index: 9;
+}
+
+.explosion {
+    width: 66px;
+    height: 66px;
+    background-image: url(../resource/img/explosion.png);
+    background-position-x: 0;
+    background-repeat: no-repeat;
+    animation: explosion .3s steps(7) forwards;
+    position: absolute;
+    z-index: 9;
+    opacity: 0.85;
+}
+
+@keyframes explosion {
+    80% {
+        opacity: 0.85;
+    }
+
+    100% {
+        background-position-x: -462px;
+        opacity: 0.3;
+    }
+}
+
+.play {
+    width: 150px;
+    position: fixed;
+    z-index: 99;
+    left: calc((100% - 150px) / 2);
+    bottom: 200px;
+    animation: play 1.2s infinite;
+}
+
+@keyframes play {
+    50% {
+        transform: scale(1.2);
+    }
+}
+
+.props {
+    width: 60px;
+    height: 60px;
+    background-image: url(../resource/img/props.png);
+    background-repeat: no-repeat;
+    position: absolute;
+    opacity: 0.9;
+    animation: props 12s linear forwards;
+}
+
+
+@keyframes props {
+    100% {
+        top: 100vh;
+    }
+}
+
+.enemyBullet {
+    width: 20px;
+    height: auto;
+    position: absolute;
+    z-index: 5;
+    animation: enemyBullet 3s linear forwards;
+}
+
+@keyframes enemyBullet {
+    100% {
+        top: 160vh;
+    }
+}
+
+.energy {
+    width: 250px;
+    height: 14px;
+    border-radius: 0;
+    box-shadow: 0 0 0 2px white;
+    transform: rotate(-90deg) skew(-3deg);
+    position: fixed;
+    top: 300px;
+    left: -112px;
+    animation: energy 1s;
+    display: none;
+}
+
+@keyframes energy {
+    0% {
+        left: -300px;
+    }
+}
+
+.energy::-webkit-progress-bar {
+    background-color: rgb(255, 202, 138);
+}
+
+.energy::-webkit-progress-value {
+    background-color: rgb(255, 140, 0);
+}
+
+.energy::before {
+    content: '能量';
+    left: -18%;
+}
+
+.energy::after {
+    content: attr(value);
+    left: -27%;
+    font-weight: 700;
+}
+
+.energy::before,
+.energy::after {
+    width: 50px;
+    position: absolute;
+    transform: rotate(90deg);
+    top: 100%;
+    color: rgb(255, 140, 0);
+    text-shadow: 0 0 4px black;
+}
+
+.highBullet {
+    position: fixed;
+    z-index: 10;
+    top: 180px;
+    left: 25px;
+    border: none;
+    border-left: 1px solid rgb(255, 234, 234);
+    padding: 5px;
+    animation: energy 0.5s;
+    display: none;
+}
+
+.highBullet::before {
+    content: '切换子弹';
+    color: white;
+    text-shadow: 0 0 4px black;
+}
+
+.highBullet div {
+    margin-top: 15px;
+}
+
+[frozen] {
+    animation-play-state: paused !important;
+    filter: drop-shadow(0 0 6px rgb(0, 242, 255));
+}
+
+.magnify {
+    width: 200px;
+    height: 200px;
+    position: fixed;
+    border-radius: 100%;
+    animation: frozen 0.7s forwards;
+}
+
+@keyframes frozen {
+    100% {
+        transform: scale(10);
+        opacity: 0;
+    }
+}
+
+.boss {
+    width: 360px;
+    height: 250px;
+    transform: scale(0.7);
+    background-image: url(../resource/img/boss.png);
+    background-repeat: no-repeat;
+    top: -150px;
+    z-index: 8;
+    animation: enemy 100s linear forwards;
+}
+
+.warn {
+    width: 250px;
+    height: auto;
+    position: fixed;
+    top: 50px;
+    left: calc((100% - 250px) / 2);
+    display: none;
+    animation: warn 1s 3;
+}
+
+@keyframes warn {
+    50% {
+        filter: brightness(120%);
+        transform: scale(1.05);
+    }
+}
+
+.skills {
+    width: 40px;
+    position: fixed;
+    bottom: 20px;
+    left: 6px;
+    z-index: 9;
+    animation: energy 1s;
+    display: none;
+}
+
+.skills img {
+    width: inherit;
+    height: 40px;
+    border: 1px solid rgb(255, 255, 255);
+    margin-top: 5px;
+    border-radius: 3px;
+}
+
+[forbid] {
+    filter: grayscale(100%);
+}
+
+.wingmanBullet {
+    width: 25px;
+    height: auto;
+    animation: none !important;
+}
+
+.hint {
+    position: fixed;
+    z-index: 999;
+    top: 60px;
+    left: calc((100% - 250px) / 2);
+    padding: 15px 5px;
+    width: 250px;
+    border-radius: 5px;
+    background-color: #4891ffda;
+    color: white;
+    text-align: center;
+    font-size: 16px;
+    font-weight: 800;
+    animation: hint .2s;
+}
+
+@keyframes hint {
+    0% {
+        top: -20px;
+        opacity: 0;
+    }
+}
