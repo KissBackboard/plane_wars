@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <title>---飞机大战---</title>
+    <link rel="shortcut icon" href="resource/img/myPlane.png">
+    <link rel="stylesheet" href="css/index.css">
+</head>
+
+<body>
+    <div id="game">
+        <!-- 开始按钮 -->
+        <img src="resource/img/loading.gif" class="play">
+
+        <!-- 顶部信息展示 -->
+        <div class="show">
+            <progress min="0" class="myBlood"></progress>
+            <span class="myAtk"></span>
+            <span class="myDefense"></span>
+            <span class="wingmanAtk"></span>
+            <div class="myGold"></div>
+            <img src="resource/img/running.png" class="pauseBtn" invalid="invalid">
+        </div>
+
+        <!-- 能量条 -->
+        <progress min="0" max="1000" class="energy"></progress>
+        <!-- 高级子弹列表 -->
+        <div class="highBullet" invalid="invalid"></div>
+
+        <!-- 我的战机 -->
+        <div id="myPlane">
+            <img src="resource/img/myPlane.png">
+        </div>
+
+        <!-- 僚机 -->
+        <img src="resource/img/wingman.png" class="wingman1">
+        <img src="resource/img/wingman.png" class="wingman2">
+
+        <!-- 技能列表 -->
+        <div class="skills" invalid="invalid"></div>
+
+        <!-- 警告 -->
+        <img src="resource/img/warn.png" class="warn">
+
+        <!-- 音频 -->
+        <audio src="resource/audio/bgm1.mp3" autoplay loop class="bgmAudio"></audio>
+        <audio src="resource/audio/menu.mp3" autoplay loop class="menuAudio"></audio>
+
+        <!-- 预加载 -->
+        <audio src="resource/audio/click.mp3" muted autoplay></audio>
+        <audio src="resource/audio/explosion.mp3" muted autoplay></audio>
+        <audio src="resource/audio/fail.mp3" muted autoplay></audio>
+        <audio src="resource/audio/joy1.mp3" muted autoplay></audio>
+        <audio src="resource/audio/prevent.mp3" muted autoplay></audio>
+        <audio src="resource/audio/recover.mp3" muted autoplay></audio>
+        <audio src="resource/audio/warn1.mp3" muted autoplay></audio>
+        <audio src="resource/audio/warn2.mp3" muted autoplay></audio>
+        <audio src="resource/audio/win.mp3" muted autoplay></audio>
+
+    </div>
+
+    <script src="js/index.js"></script>
+</body>
+
+</html>
