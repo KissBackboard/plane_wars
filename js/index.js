@@ -999,9 +999,9 @@
             if (+new Date() - debugMode.record < 300) {
                 debugMode.count++;
                 if (debugMode.count > 5) {
-                    myAtk = 99999;
+                    myAtk = 999;
                     myAtkSpan.innerText = '攻击力?????';
-                    wingmanAtk = 99999;
+                    wingmanAtk = 999;
                     wingmanAtkSpan.innerText = '僚机?????';
                 }
             } else {
