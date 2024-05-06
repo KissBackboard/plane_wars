@@ -144,6 +144,15 @@
             color: '#9727ff',
             polygon: '50% 0%, 100% 30%, 75% 100%, 50% 65%, 25% 100%, 0 30%',
             effect: ['repel'],
+        },
+        {
+            introduce: '消除敌方子弹',
+            width: 40,
+            height: 35,
+            atk: 70,
+            color: '#ffaf0e',
+            polygon: '50% 0px, 67% 33%, 100% 50%, 67% 67%, 50% 100%, 33% 67%, 0px 50%, 33% 33%',
+            effect: ['clearBullet'],
         }
     ]
 
@@ -259,6 +268,15 @@
                     frozens.forEach(frozen => frozen.removeAttribute('frozen'));
                 }, 6000);
             }
+        }, {
+            introduce: '能量 +1000',
+            index: 6,
+            BGX: -360,
+            propsFn() {
+                energy += 1000;
+                energyProg.value = energy;
+                highBullet.style.display = 'block';
+            }
         }
     ]
 
@@ -300,17 +318,6 @@
                         });
                     }, i * 700);
                 }
-            }
-        }, {
-            introduce: '能量 +1000',
-            index: 2,
-            time: 0,
-            icon: 'energyAdd',
-            skillFn() {
-                this.time = 30;
-                energy += 1000;
-                energyProg.value = energy;
-                highBullet.style.display = 'block';
             }
         }, {
             introduce: '提升僚机攻击速度',
@@ -511,6 +518,24 @@
         });
     }
 
+    // 判断敌人的子弹和自己的子弹是否碰撞
+    function intersect_enemyBullet_myBullet() {
+        const enemyBullets = document.querySelectorAll('.enemyBullet');
+        const myBullets = document.querySelectorAll('[clearBullet].bullet');
+        enemyBullets.forEach(enemyBullet => {
+            myBullets.forEach(myBullet => {
+                if (rectIntersect(enemyBullet, myBullet)) {
+                    const rect = myBullet.getBoundingClientRect();
+                    createExplosion(rect.top - 50, rect.left - rect.width / 2);
+                    createdAudio('explosion');
+
+                    enemyBullet.remove();
+                    myBullet.remove();
+                }
+            });
+        });
+    }
+
     // 判断自己的子弹和敌机是否碰撞
     function intersect_bullet_enemy() {
         const bullets = document.querySelectorAll('.bullet');
@@ -650,6 +675,7 @@
         intersect_bullet_enemy();
         intersect_myPlane_props();
         intersect_enemyBullet_my();
+        intersect_enemyBullet_myBullet();
         requestAnimationFrame(requestAnimationFrame_);
     }
 
@@ -969,11 +995,10 @@
         init();
 
         // 调试模式
-        energyProg.addEventListener('touchstart', () => debugMode.record = +new Date());
-        energyProg.addEventListener('touchend', () => {
-            if (+new Date() - debugMode.record > 3000) {
+        myBloodProg.addEventListener('click', () => {
+            if (+new Date() - debugMode.record < 300) {
                 debugMode.count++;
-                if (debugMode.count >= 2) {
+                if (debugMode.count > 5) {
                     myAtk = 99999;
                     myAtkSpan.innerText = '攻击力?????';
                     wingmanAtk = 99999;
@@ -982,8 +1007,11 @@
             } else {
                 debugMode.count = 0;
             }
+
+            debugMode.record = +new Date();
         });
 
+        // 开始游戏
         play.addEventListener('touchstart', gameStart);
         play.setAttribute('src', 'resource/img/play.png');
     }
